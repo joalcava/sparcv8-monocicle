@@ -3,7 +3,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity register_file is
-	Port( rs1  : in  STD_LOGIC_VECTOR (4  downto 0);
+	Port( rst  : in  STD_LOGIC;
+			rs1  : in  STD_LOGIC_VECTOR (4  downto 0);
 			rs2  : in  STD_LOGIC_VECTOR (4  downto 0);
 			rd   : in  STD_LOGIC_VECTOR (4  downto 0);
 			data : in  STD_LOGIC_VECTOR (31 downto 0);
@@ -19,10 +20,20 @@ architecture ArqRegFile of register_file is
 	signal reg : ram_type := (others => x"00000000");
 	
 begin
-
-	crs1 <= reg(conv_integer(rs1 ));
-	crs2 <= reg(conv_integer(rs2 ));
-	reg(conv_integer(rd)) <= data;
+	
+	process(rst, rs1, rs2, rd)
+	begin
+		if (rst = '0') then
+			crs1 <= reg(conv_integer(rs1 ));
+			crs2 <= reg(conv_integer(rs2 ));
+			reg(conv_integer(rd)) <= data;
+		else
+			crs1 <= x"00000000";
+			crs2 <= x"00000000";
+			rd <=  x"00000000";
+			data <= x"00000000";
+			reg <= (others => x"00000000");
+	end process;
 
 end ArqRegFile;
 
