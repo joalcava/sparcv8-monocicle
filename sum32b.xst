@@ -1,5 +1,0 @@
-set -tmpdir "C:/Users/utp/monocicle-sparcv8/xst/projnav.tmp"
-set -xsthdpdir "C:/Users/utp/monocicle-sparcv8/xst"
-elaborate
--ifn sum32b.prj
--ifmt mixed

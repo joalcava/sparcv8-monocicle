@@ -1,5 +1,0 @@
-set -tmpdir "C:/Users/utp.CRIE/Desktop/sparcv8-monocicle/xst/projnav.tmp"
-set -xsthdpdir "C:/Users/utp.CRIE/Desktop/sparcv8-monocicle/xst"
-elaborate
--ifn alu.prj
--ifmt mixed

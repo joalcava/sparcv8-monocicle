@@ -30,9 +30,8 @@ begin
 		else
 			crs1 <= x"00000000";
 			crs2 <= x"00000000";
-			rd <=  x"00000000";
-			data <= x"00000000";
 			reg <= (others => x"00000000");
+		end if;
 	end process;
 
 end ArqRegFile;
