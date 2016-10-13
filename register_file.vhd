@@ -21,12 +21,14 @@ architecture ArqRegFile of register_file is
 	
 begin
 	
-	process(rst, rs1, rs2, rd)
+	process(rst, rs1, rs2, rd,data)
 	begin
 		if (rst = '0') then
 			crs1 <= reg(conv_integer(rs1 ));
 			crs2 <= reg(conv_integer(rs2 ));
-			reg(conv_integer(rd)) <= data;
+			if(rd /= "00000") then
+				reg(conv_integer(rd)) <= data;
+			end if;
 		else
 			crs1 <= x"00000000";
 			crs2 <= x"00000000";

@@ -63,6 +63,7 @@ COMPONENT pc
 		);
 	END COMPONENT;
 	
+	
 COMPONENT register_file
 	PORT(
 		rst : IN std_logic;

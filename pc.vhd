@@ -12,13 +12,13 @@ end pc;
 architecture ArqPC of pc is
 
 begin
-	process(clk)
+	process(clk, address, rst)
 	begin
-		if(rising_edge(clk)) then
-			if (rst = '1') then
-				sig <= x"00000000";
-			else
-					sig <= address;
+		if (rst = '1')then
+		    sig <= (others => '0');
+		else
+			if(rising_edge(clk))then
+				sig <= address;
 			end if;
 		end if;
 	end process;
