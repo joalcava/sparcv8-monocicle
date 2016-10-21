@@ -38,15 +38,17 @@ begin
 		elsif (aluop="000111") or (aluop="010011") then --Xnor Operations
 			r <= crs1 xnor crs2;
 		elsif (aluop="010100")then --SLL
-			r<= crs1 sll std_logic_vector(to_integer(unsigned(crs2)));
+			r<= to_stdlogicvector(to_bitvector(crs1) SLL conv_integer(crs2));
 		elsif (aluop="010101")then --SRL
-			r<= crs1 srl std_logic_vector(to_integer(unsigned(crs2)));
+			r<= to_stdlogicvector(to_bitvector(crs1) SRL conv_integer(crs2));
 		else
 			r<=x"00000000";
 		end if;
 	end process;
 
 end ArqAlu;
+
+
 
 
 
