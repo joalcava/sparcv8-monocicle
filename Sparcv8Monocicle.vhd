@@ -12,6 +12,42 @@ architecture Behavioral of Sparcv8Monocicle is
 
 ---Componentes
 
+COMPONENT windows_manager
+	PORT(
+		cwp : IN std_logic;
+		rs1 : IN std_logic_vector(4 downto 0);
+		rs2 : IN std_logic_vector(4 downto 0);
+		rd : IN std_logic_vector(4 downto 0);
+		op : IN std_logic_vector(1 downto 0);
+		op3 : IN std_logic_vector(5 downto 0);          
+		nrs1 : OUT std_logic_vector(5 downto 0);
+		nrs2 : OUT std_logic_vector(5 downto 0);
+		nrd : OUT std_logic_vector(5 downto 0);
+		ncwp : OUT std_logic
+		);
+	END COMPONENT;
+
+COMPONENT psr
+	PORT(
+		clk : IN std_logic;
+		reset : IN std_logic;
+		nzvc : IN std_logic_vector(3 downto 0);
+		ncwp : IN std_logic;
+		carry : OUT std_logic;
+		cwp : OUT std_logic
+		);
+	END COMPONENT;
+	
+COMPONENT psr_modifier
+	PORT(
+		crs1 : IN std_logic;
+		ope2 : IN std_logic;
+		alur : IN std_logic_vector(31 downto 0);
+		aluop : IN std_logic_vector(5 downto 0);          
+		nzvc : OUT std_logic_vector(3 downto 0)
+		);
+	END COMPONENT;
+
 COMPONENT sum32b
 	PORT(
 		Op1 : IN std_logic_vector(31 downto 0);
@@ -22,6 +58,7 @@ COMPONENT sum32b
 
 COMPONENT alu
 	PORT(
+		carry : IN std_logic;
 		aluop : IN std_logic_vector(5 downto 0);
 		crs1 : IN std_logic_vector(31 downto 0);
 		crs2 : IN std_logic_vector(31 downto 0);          
@@ -67,9 +104,9 @@ COMPONENT pc
 COMPONENT register_file
 	PORT(
 		rst : IN std_logic;
-		rs1 : IN std_logic_vector(4 downto 0);
-		rs2 : IN std_logic_vector(4 downto 0);
-		rd : IN std_logic_vector(4 downto 0);
+		rs1 : IN std_logic_vector(5 downto 0);
+		rs2 : IN std_logic_vector(5 downto 0);
+		rd : IN std_logic_vector(5 downto 0);
 		data : IN std_logic_vector(31 downto 0);          
 		crs1 : OUT std_logic_vector(31 downto 0);
 		crs2 : OUT std_logic_vector(31 downto 0)
@@ -83,12 +120,44 @@ COMPONENT sign_ext_unit
 		);
 	END COMPONENT;
 	
-signal aux1,aux2,aux3,aux4,aux6,aux7,aux8,aux9,aux10,aux11:std_logic_vector(31 downto 0);
-signal aux5:std_logic_vector(5 downto 0);
+signal aux1,aux2,aux3,aux4,aux6,aux7,aux9,aux10,aux11:std_logic_vector(31 downto 0);
+signal aux5,aux14,aux15,aux16:std_logic_vector(5 downto 0);
+signal aux12,aux17,aux18:std_logic;
+signal aux13:std_logic_vector(3 downto 0);
 begin
 
 ---Instancia de los componentes
 
+	Inst_windows_manager: windows_manager PORT MAP(
+		cwp => aux18,
+		rs1 => aux4(18 downto 14),
+		rs2 => aux4(4 downto 0),
+		rd => aux4(29 downto 25),
+		op => aux4(31 downto 30),
+		op3 => aux4(24 downto 19),
+		nrs1 => aux14,
+		nrs2 => aux15,
+		nrd => aux16,
+		ncwp => aux17
+	);
+
+	Inst_psr: psr PORT MAP(
+		clk => CLK,
+		reset => RST,
+		nzvc => aux13,
+		ncwp => aux17,
+		carry => aux12,
+		cwp => aux18
+	);
+
+	Inst_psr_modifier: psr_modifier PORT MAP(
+		crs1 => aux6(31),
+		ope2 => aux9(31),
+		alur => aux10,
+		aluop => aux5,
+		nzvc => aux13
+	);
+	
 	Inst_sum32b: sum32b PORT MAP(
 		Op1 => x"00000001",
 		Op2 => aux1,
@@ -96,6 +165,7 @@ begin
 	);
 	
 	Inst_alu: alu PORT MAP(
+		carry => aux12,
 		aluop => aux5,
 		crs1 => aux6,
 		crs2 => aux9,
@@ -137,9 +207,9 @@ begin
 	
 	Inst_register_file: register_file PORT MAP(
 		rst => RST,
-		rs1 => aux4(18 downto 14),
-		rs2 => aux4(4 downto 0),
-		rd => aux4(29 downto 25),
+		rs1 => aux14,
+		rs2 => aux15,
+		rd => aux16,
 		data => aux10,
 		crs1 => aux6,
 		crs2 => aux7

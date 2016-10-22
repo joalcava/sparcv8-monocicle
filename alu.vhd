@@ -23,7 +23,7 @@ begin
 			r<=crs1 +crs2 + carry;
 		elsif (aluop="000001") or (aluop="001001") then --Sub Operations
 			r <= crs1 - crs2 ;
-		elsif (aluop="001100") or (aluop="001101") then
+		elsif (aluop="001100") or (aluop="001101") then --SubX Operations
 			r<=crs1 - crs2 - carry;
 		elsif (aluop="000010") or (aluop="001110") then --Or Operations
 			r <= crs1 or crs2;

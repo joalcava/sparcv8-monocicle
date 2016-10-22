@@ -3,20 +3,6 @@
 -- Engineer: 
 -- 
 -- Create Date:    16:25:06 10/20/2016 
--- Design Name: 
--- Module Name:    psr - Behavioral 
--- Project Name: 
--- Target Devices: 
--- Tool versions: 
--- Description: 
---
--- Dependencies: 
---
--- Revision: 
--- Revision 0.01 - File Created
--- Additional Comments: 
---
-----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
@@ -26,20 +12,31 @@ Port(
 	clk   : in std_logic;
 	reset : in std_logic;
 	nzvc  : in  std_logic_vector(3 downto 0);
-	carry : out std_logic
+	ncwp : in std_logic;
+	carry : out std_logic;
+	cwp : out std_logic
 );
 end psr;
-
 architecture psrArq of psr is
 
-signal PSRDATA : std_logic_vector (4 downto 0) := x"00000000";
+
+signal PSRDATA : std_logic_vector (3 downto 0) := "0000";
 
 begin
 
-process(clk)
+process(clk,nzvc,ncwp,reset)
 begin
-	if (rising_edge(clk))then
-		PSRDATA(3 downto 0) <= nzvc;
+
+	if (reset='1') then
+		PSRDATA<= "0000";
+		carry<= '0';
+		cwp <= '0';
+	else	
+		if (rising_edge(clk))then
+			PSRDATA<= nzvc;
+			carry<=PSRDATA(0);
+			cwp <= ncwp;
+		end if;
 	end if;
 end process;
 
