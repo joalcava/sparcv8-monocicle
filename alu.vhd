@@ -4,7 +4,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity alu is
-	Port( carry: in STD_LOGIC_VECTOR;
+	Port( carry: in STD_LOGIC;
 			aluop : in  STD_LOGIC_VECTOR (5  downto 0);
 			crs1   : in  STD_LOGIC_VECTOR (31 downto 0); 
 			crs2   : in  STD_LOGIC_VECTOR (31 downto 0);
