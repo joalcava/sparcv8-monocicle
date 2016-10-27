@@ -4,7 +4,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity Sparcv8Monocicle is 
 Port ( CLK : in  STD_LOGIC;
 RST: in STD_LOGIC;
-R : out  STD_LOGIC_VECTOR(31 downto 0)
+R : out  STD_LOGIC_VECTOR(31 downto 0);
+CWPCheck: out std_logic
 			  );
 end Sparcv8Monocicle;
 
@@ -220,6 +221,7 @@ begin
 		salida => aux11
 	);
 
+	CWPCheck <= aux18;
 	R<=aux10;
 
 end Behavioral;
