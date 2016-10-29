@@ -5,7 +5,8 @@ entity Sparcv8Monocicle is
 Port ( CLK : in  STD_LOGIC;
 RST: in STD_LOGIC;
 R : out  STD_LOGIC_VECTOR(31 downto 0);
-CWPCheck: out std_logic
+NCWPCheck: out std_logic;
+NZVCCheck: out std_logic_vector(3 downto 0)
 			  );
 end Sparcv8Monocicle;
 
@@ -221,7 +222,8 @@ begin
 		salida => aux11
 	);
 
-	CWPCheck <= aux18;
+	NCWPCheck <= aux17;
+	NZVCCheck <= aux13;
 	R<=aux10;
 
 end Behavioral;
