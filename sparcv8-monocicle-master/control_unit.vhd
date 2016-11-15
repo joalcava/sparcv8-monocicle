@@ -35,7 +35,7 @@ begin
 				case cond is
 					when "1000" => --Branch Always
 						PCSource<= "10";--PC + seu(disp22)
-						write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+						write_enable <= '0';--No Permitimos guardar datos en RF 
 						RFSource<= "00";--Elegimos aluresult
 						RFdest<='0';--Se debe elegir nRd
 						wrenDM <= '0';--No escribimos en DM
@@ -43,14 +43,14 @@ begin
 					when "1001" => --Branch on Not Equal
 						if(not(icc(2)) = '1') then --not z
 							PCSource<= "10";--PC + seu(disp22)
-							write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+							write_enable <= '0';--No Permitimos guardar datos en RF 
 							RFSource<= "00";--Elegimos aluresult
 							RFdest<='0';--Se debe elegir nRd
 							wrenDM <= '0';--No escribimos en DM
 							Aluop <= "111111";--No hacemos operaciones aritmetico logicas
 						else
 							PCSource<= "11";--PC + 1
-							write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+							write_enable <= '0';--No Permitimos guardar datos en RF 
 							RFSource<= "00";--Elegimos aluresult
 							RFdest<='0';--Se debe elegir nRd
 							wrenDM <= '0';--No escribimos en DM
@@ -59,14 +59,14 @@ begin
 					when "0001" => --Branch on Equal
 						if(icc(2) = '1') then
 							PCSource<= "10";--PC + seu(disp22)
-							write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+							write_enable <= '0';--No Permitimos guardar datos en RF 
 							RFSource<= "00";--Elegimos aluresult
 							RFdest<='0';--Se debe elegir nRd
 							wrenDM <= '0';--No escribimos en DM
 							Aluop <= "111111";--No hacemos operaciones aritmetico logicas
 						else
 							PCSource<= "11";--PC + 1
-							write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+							write_enable <= '0';--No Permitimos guardar datos en RF 
 							RFSource<= "00";--Elegimos aluresult
 							RFdest<='0';--Se debe elegir nRd
 							wrenDM <= '0';--No escribimos en DM
@@ -75,14 +75,14 @@ begin
 					when "1010" => --Branch on Greater
 						if((not(icc(2) or (icc(3) xor icc(1)))) = '1') then --not(Z or (N xor V))
 							PCSource<= "10";--PC + seu(disp22)
-							write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+							write_enable <= '0';--No Permitimos guardar datos en RF 
 							RFSource<= "00";--Elegimos aluresult
 							RFdest<='0';--Se debe elegir nRd
 							wrenDM <= '0';--No escribimos en DM
 							Aluop <= "111111";--No hacemos operaciones aritmetico logicas
 						else
 							PCSource<= "11";--PC + 1
-							write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+							write_enable <= '0';--No Permitimos guardar datos en RF 
 							RFSource<= "00";--Elegimos aluresult
 							RFdest<='0';--Se debe elegir nRd
 							wrenDM <= '0';--No escribimos en DM
@@ -91,14 +91,14 @@ begin
 					when "0010" => --Branch on Less or Equal
 						if((icc(2) or (icc(3) xor icc(1))) = '1') then --Z or (N xor V)
 							PCSource<= "10";--PC + seu(disp22)
-							write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+							write_enable <= '0';--No Permitimos guardar datos en RF 
 							RFSource<= "00";--Elegimos aluresult
 							RFdest<='0';--Se debe elegir nRd
 							wrenDM <= '0';--No escribimos en DM
 							Aluop <= "111111";--No hacemos operaciones aritmetico logicas
 						else
 							PCSource<= "11";--PC + 1
-							write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+							write_enable <= '0';--No Permitimos guardar datos en RF 
 							RFSource<= "00";--Elegimos aluresult
 							RFdest<='0';--Se debe elegir nRd
 							wrenDM <= '0';--No escribimos en DM
@@ -107,14 +107,14 @@ begin
 					when "1011" => -- Branch on Greater or Equal
 						if((not(icc(3) xor icc(1))) = '1') then --not (N xor V)
 							PCSource<= "10";--PC + seu(disp22)
-							write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+							write_enable <= '0';--No Permitimos guardar datos en RF 
 							RFSource<= "00";--Elegimos aluresult
 							RFdest<='0';--Se debe elegir nRd
 							wrenDM <= '0';--No escribimos en DM
 							Aluop <= "111111";--No hacemos operaciones aritmetico logicas
 						else
 							PCSource<= "11";--PC + 1
-							write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+							write_enable <= '0';--No Permitimos guardar datos en RF 
 							RFSource<= "00";--Elegimos aluresult
 							RFdest<='0';--Se debe elegir nRd
 							wrenDM <= '0';--No escribimos en DM
@@ -123,14 +123,14 @@ begin
 					when "0011" => --Branch on Less
 						if((icc(3) xor icc(1)) = '1') then -- (N xor V)
 							PCSource<= "10";--PC + seu(disp22)
-							write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+							write_enable <= '0';--No Permitimos guardar datos en RF 
 							RFSource<= "00";--Elegimos aluresult
 							RFdest<='0';--Se debe elegir nRd
 							wrenDM <= '0';--No escribimos en DM
 							Aluop <= "111111";--No hacemos operaciones aritmetico logicas
 						else
 							PCSource<= "11";--PC + 1
-							write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+							write_enable <= '0';--No Permitimos guardar datos en RF 
 							RFSource<= "00";--Elegimos aluresult
 							RFdest<='0';--Se debe elegir nRd
 							wrenDM <= '0';--No escribimos en DM
@@ -138,7 +138,7 @@ begin
 						end if;
 					when others =>
 						PCSource<= "11";--PC + PCaddress
-						write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
+						write_enable <= '0';--No Permitimos guardar datos en RF 
 						RFSource<= "00";--Elegimos aluresult
 						RFdest<='0';--Se debe elegir nRd
 						wrenDM <= '0';--No escribimos en DM
@@ -146,8 +146,8 @@ begin
 				end case;
 			elsif(op2 = "100") then --NOP
 				PCSource<= "11";--PC + 1
-				write_enable <= '0';--Permitimos guardar datos en RF (Valor actual de PC)
-				RFSource<= "01";--Elegimos aluresult
+				write_enable <= '0';--No Permitimos guardar datos en RF (Valor actual de PC)
+				RFSource<= "00";--Elegimos aluresult
 				RFdest<='0';--Se debe elegir nRd
 				wrenDM <= '0';--No escribimos en DM
 				Aluop <= "111111";--No hacemos operaciones aritmetico logicas
